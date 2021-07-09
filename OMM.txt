@@ -11,6 +11,7 @@ NOTES =========================
 25/05/21 - We have just released new versions of the OMM server (0.6.0) and client (0.3.0) software.
 
 21/02/21 - Download the match-to-sample.osexp and match-to-sample-jobs.csv and use these to create a study on the OMM Server. 
+https://github.com/open-cogsci/omm-client/tree/master/osexp 
 (You can use your own OMM server if it's up to date, or omm.cogsci.nl, which will work but of course is a bit slower, so expect 1 or 2 s delays.) This experiment never finishes, so it's convenient for testing (and as a default study later).
 Create a participant with an ID that matches the RFID on one of your test sticks, and assign this participant to the study.
 Install/ update opensesame-extension-omm >= 0.2.5 ideally on the latest version of OpenSesame (3.3.8). See the readme for installation instructions. Restart OpenSesame when this done.
@@ -30,5 +31,23 @@ PROGRESS ==========================
 Installation WSL2    https://docs.microsoft.com/en-us/windows/wsl/install-win10   OK 	
 Installation Docker  https://www.docker.com/products/docker-desktop  OK
 Installation OMM server    https://github.com/open-cogsci/omm-server  OK
-
 Utilisation OMM Entry Point (set rfid to COM5) : successful detection of rfid! et activation de la récompense!!
+
+11/06
+New GitHub repo OMM - transfer all repositories to Documents/GitHub
+Trying the match-to-sample.osexp and match-to-sample-jobs.csv and use these to create a study on the OMM Server. 
+https://github.com/open-cogsci/omm-client/tree/master/osexp
+
+23/06
+Installation client station w touch screen ok
+Issues:
+- en local match-to-sample n'est pas infinite mais s'arrete apres le premier trial
+- pas de connection au serveur via OMM entry point... performs fallback experiment
+- connexion instable à localhost
+
+30/06
+Réussi à faire marcher match-to-sample entre client et server sur même machine!!
+et à récupérer les données!
+Next steps:
+ -> configurer IP adresses fixes sur les 5 PC à Rousset
+ -> Programmer tâches de Marie!!
