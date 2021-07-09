@@ -51,3 +51,7 @@ et à récupérer les données!
 Next steps:
  -> configurer IP adresses fixes sur les 5 PC à Rousset
  -> Programmer tâches de Marie!!
+
+9/07
+Expé match to sample marche entre client et serveur sur un meme machine
+Plusieurs modifs pour ajouter des sons, et un bouton start
