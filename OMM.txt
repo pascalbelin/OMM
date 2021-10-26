@@ -59,3 +59,11 @@ Plusieurs modifs pour ajouter des sons, et un bouton start
 25/08 Attention DRIVER à installer pour piloter le systeme de recompense:
 winn_usb-to-rs232-driver-windows-10-ftdi_EN
 copié dans le dossier OMM
+
+
+/////////////////////
+25/10/21 
+Nouvelle version OMM server v0.7.1 - mise à jour automatiquement via qithub sur ma machine
+Mise à jour client à  0.5.1. pas réussie.. (?)
+Essai exp Match-to-sample_test6.osxep : fonctionne bien entre client et server!
+A essayer sur les machines de Rousset!
