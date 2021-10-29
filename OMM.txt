@@ -21,11 +21,6 @@ By default, the RFID is on COM3 and the seed dispenser on COM4 (as per your exam
 but you can change this by adding omm_condition_port: COM8 and/ or omm_rfid_port: COM7 to the YAML data (on my system they are on COM7 and 8).
 
 
-
-
-
-
-
 PROGRESS ==========================
 10/06 
 Installation WSL2    https://docs.microsoft.com/en-us/windows/wsl/install-win10   OK 	
@@ -37,6 +32,7 @@ Utilisation OMM Entry Point (set rfid to COM5) : successful detection of rfid! e
 New GitHub repo OMM - transfer all repositories to Documents/GitHub
 Trying the match-to-sample.osexp and match-to-sample-jobs.csv and use these to create a study on the OMM Server. 
 https://github.com/open-cogsci/omm-client/tree/master/osexp
+
 
 23/06
 Installation client station w touch screen ok
@@ -67,3 +63,55 @@ Nouvelle version OMM server v0.7.1 - mise à jour automatiquement via qithub sur
 Mise à jour client à  0.5.1. pas réussie.. (?)
 Essai exp Match-to-sample_test6.osxep : fonctionne bien entre client et server!
 A essayer sur les machines de Rousset!
+
+26/10/21
+Essai codage OMM Background task via server
+mais erreur COM6 - et la même erreur pour Match to sample 6 qui marchait pourant hier!!?
+Pourtant Match to sample 7 marche en local (renommé à 7 pour retirer reward bien que dans la poubelle)
+ca ne marche plus toujours erreur "could not open port 'COM6'"
+C'est parcequ'il va automatiquement sur la 'fallback task'... c'etait un conditioner test
+Si je remplace celle ci par une autre juste un seul trial de cette fallback task est joué
+==> J'avais oublié d'assigner lmes participants! (merci Nico)
+Mais ca continues a ne pas marcher, on dirait qu'il ne reconnait pas mes participants avec le mode' Identification method: keypress'
+==> ca marche! les participants étaient 'queued': les mettre en priorité 2 les affiche comme 'first to run'!
+Les priorités sont entre les taches pour chaque particvipant! (pas entre les participants)
+==> OMM Background Task marche bien (avec la même tâche en fallback pour les ID ne correpondant pas aux sujets attribués)
+
+** Installation du serveur à Rousset
+- mise à jour windows
+
+27/10/21
+Installation machine Serveur:DESKTOP-IQFVN1F-Serveur
+	Installation WSL2    https://docs.microsoft.com/en-us/windows/wsl/install-win10 OK (mais Ubuntu demande un new Unix name... pas réussi)
+	Installation Docker  https://www.docker.com/products/docker-desktop OK
+Serveur OK
+Installation 1ere Manip 'OMM Background Task v1' OK
+5 participants + TEST (keys m, n) assigned
+To do: configure Module 4 avec client
+
+28/10/21
+Installation docker + dernière version OMM server sur machine Serveur - version 0.7.1
+Installation dernieres versions de Open Sesame + OMM client sur Module 4 
+==> il faut désactiver le firewall et/ou l'antivirus sur la machine serveur pour que le client le voie.
+Mais l'expé OMM Background Task préparée sur ma machine perso ne fonctionne pas: je n'ai pas les dernières versions!!
+Je réinstalle tout:
+	- Open Sesame 3.3.10	OK
+	- OMM client (commande pip install opensesame-extension-omm --upgrade dans opensesame) version 0.5.1	OK
+	- Docker (https://www.docker.com/products/docker-desktop) 	OK
+	- OMM server (commande docker-compose up -d dans powershell)	version 0.7.1 	OK 
+
+Maintenant j'ai le meme probleme que sur les machines de Rousset (bon signe)
+La manip BackgroudTask qui marche sans pb sur OpenSesame, et marchait avec l'ancienne version des clients et serveurs - ne marche plus.
+Erreur: The variable 'job_index' does not exist. 
+Je regarde l'expé envoyée par Sebastiaan: OK je prends le script 'get session date' au début; et définit [current_job] dans la fonction Request_job
+Ca marche!!
+Installation de OpenSesame 3.3.10 sur les modules 1, 2 et 3
+
+29/10/21
+Installation OpenSesame 3.3.10 et OMM client 0.5.1 sur machine serveur	OK
+==> pour indiquer au serveur le port COM 
+via le YAML dictionary du client:
+conditioner_port= COM5
+et dans l'expé utiliser la variable [conditioner_port] pour les 'reward' items
+Ca fonctionne!
+Problème: la RFID ne fonctiopnne pas: Comment indiquer au serveur le bon port COM??
