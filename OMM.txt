@@ -115,3 +115,85 @@ conditioner_port= COM5
 et dans l'expé utiliser la variable [conditioner_port] pour les 'reward' items
 Ca fonctionne!
 Problème: la RFID ne fonctiopnne pas: Comment indiquer au serveur le bon port COM??
+
+3/11/2021
+La manip tourne sur le module 4!!
+Pour la rfid il faut indiquer le port COM dans le champ 'Serial port' de la commande 'Detect' du OMMEntryPoint (qui est labellé par erreur 'For seed dispenser')
+Puis démarer OMMEntryPöint avec la grande fleche verte du haut (executer en plein écran)
+Ou alors encore plus simplement ouvrir OMM clinet et inlure les infos dans el YAML data
+conditioner_port: COM4
+serial_port: COM5
+
+Mais ca ne marche pas sur Module 3: erreur 'could not open port 'COM4'... 
+ou parfois 'COM5', parfois des le 1er essai, parfois au bout de 2-3 essais...
+
+4/11/21
+Discussion avec Nico: je ne devrais pas passer par YamL mais par le entry point... 
+il dit que c'est bizarre que ça marche...
+j'essaie de sauver le EntryPoint modifié sur le bureau
+Je mets les port COM conitioner en dur dans la manip: COM4 pour toutes les machines! et ça marche
+
+5/11/21
+Bon ca plante assez rapidement, avec messages d'erreur liés à la fallback exp manquante, et aussi une ID de participant invalide?
+J'essaie de mettre la fallback exp BackgroundTask7 sur le module 4 - ca a l'air de fonctionner... mais non 
+Je rajoute un time out de 3s (si ils passent le bras mais n'appuient pas sur l'écran - retour à l'écran gris)
+et une petite récompense pour passer le bras: OMMBackgrounTask v3
+Nouvelle erreur: quand Maurice passe le bras ça plante l'expé: son ID n'est pas reconnué, il faut rajouter un 09 devant!!
+
+6/11/21
+Je rajoute les 09 devant les ID des 5 singes
+
+==================================================================================
+Décembre 2021: les tâches fonctionnent bien entre client et serveur !!! :)
+Notre gorupe de femelles enfin en constitution.
+Background Task 6: random coo + écran (fruits) + reward à détection, 2e récompense au toucher
+
+27/12/21 Task 1: Go-NoGo. But: série de sons identiques (2-6) puis son différent. *
+But: toucher l'écran en moins de 500ms -> reward sinon timeout (écran noir 3s).
+Phases :
+- BackgroundTask: coo + écran blanc - reward if touch < 3s  (plus 1s delay after touch before next trial)
+- Task1_1: reduction fenetre réponse à 1s
+- Task1_2: ajout progressif 1-6 coos similaires (IOI 1s) entre détection et écran+coo(différent)
+	reward on touch after white screen + coo (1s response window fron onset); nombre de coos passé dans la table
+- Task 1_3: comme Task1_2 mais écran blanc dès le début (plus uniquement quand coo différent)
+
+29/12/21 Plkusieurs problèmes à règler:
+- délai entre détection et écran trop long ~1s (peut-être à mettre avant la récompense?)
+- nombre de pulses récompense? semble psa avoir d'effet sur OMM-BT6
+- control du nombre de jobs... je n'arrive pas à faire en sorte que seuls 5 essais de OMMTask1-2...
+Aussi: changement de Backgroiund Task - sans image (plus rapide on dirait)
+- BackgroundTask0: détection = écran blanc + coo + récompense; 2e trécompense si touche (time out 3s écran noir) -
+- BackgroundTask: BT gébérale. dtécxtion=écran blanc + coo; récompense si touche <3s 
+- OMM-Task1_1: delai de toucher à 1s
+- OMM-Task1_2: ajout 2e coo (différent, 1s IOI) avant white screen + coo
+
+7/1/22 Progrès notables sur le contrôle des jobs!
+Il faut donc deux 'Inline scripts': un pour appeller les infos de session au début, et un à la fin pour updater les infos de session 
+-> Merci Nico!
+La gestion du nombre de jobs puis le passage à l'expé suivante marchent bien!!
+Nouveau challenge: controler le nombre de répétitions du coo1 via les jobs... pour l'instant ça ne fnctoinne pas
+Ca marche!!
+Du coup Task 1_2: 
+le nombre de répétitions du coo1 est spécifié par la variable NumRep dans la table de jobs
+Prochain challenge: passage de Task1_1 à Task1_2 après avoir atteint un critère!! semaine prochaine ;)
+
+13/1/22 Essai de passage automatique d'un niveau6à l'autre sur Task1_1
+	- délai de réponse diminué de 3s à 500ms en étapes de 500ms (6 niveaux)
+	- passage d'un niveau à l'autre si performance > 80% sur un bloc de 50 essais
+... problème avec la variable 'job_correct' du script 2AFC de Nicolas
+
+14/1/22 Réussi à programmer un critere de performance avant de passer à la phase suivante du test... sauf que ça ne marche pas!
+Et reçu tout ce qu'il faut pour tester les manips ici - je vais regarder ça ce WE...
+
+20/01/2022
+Réunion très productive avec Joël et Nico sur les tâches mardi 18...
+Du coup je reprogramme tout. cf le PPT OMM-Task1 dans GitHub/OMM
+- il faut mettre le bouton de réponse dans le OMMEntryPoint pour qu'il soit affiché immédiatement après la détection (si dans le programme sur le serveur, délai plusieurs 100's ms)
+
+22/01/22
+Installation d'un système complet à la maison :)
+Programmation de la tache BackgroundTask principale:
+- bouton de réponse affiché à la détection; coo joué; 
+si écran touché en moins de 2s: reward + écran noir; sinon essai aborted
+Ca fonctionne bien sur ma machine.
+Next step: programmer les tâches en différentes phases! 

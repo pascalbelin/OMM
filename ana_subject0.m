@@ -1,13 +1,13 @@
-%% analyse premiere semaine module 1
+%% analyse data serveur
+% 19 nov 2021
 
 clear all; close all;
-cd('C:\AMUBOX\Shared\Projet Covoprim_Rousset');
-start_date=datetime(2021,09,21,13,49,18); % début manip
+cd('C:\Users\pbeli\Documents\GitHub\OMM');
+% start_date=datetime(2021,09,21,13,49,18); % début manip
 % 21-Sep-2021 13:49:18
 
 %% load excel file
-[NUM0,TXT0,RAW0]=xlsread('subject-0.csv');
-[NUM1,TXT1,RAW1]=xlsread('subject-1.csv');
+[NUM0,TXT0,RAW0]=xlsread('data_20211119115608.csv');
 %% analyse trial times
 figure(1); hold on
 I=find(NUM0(:,13)==1); % correct trials

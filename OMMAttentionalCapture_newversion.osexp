@@ -26,7 +26,7 @@ set font_size 18
 set font_italic no
 set font_family mono
 set font_bold no
-set experiment_path "/home/sebastiaan/git/omm-client/osexp"
+set experiment_path "C:/Users/pbeli/Documents/GitHub/OMM"
 set disable_garbage_collection yes
 set description "Loosely based on Theeuwes (1992)"
 set coordinates relative
@@ -233,7 +233,7 @@ define keyboard_response keyboard_response
 	set event_type keypress
 	set duration keypress
 	set description "Collects keyboard responses"
-	set allowed_responses "z;/"
+	set allowed_responses "q;s"
 
 define logger logger
 	set description "Logs experimental data"
