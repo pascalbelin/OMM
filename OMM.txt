@@ -197,3 +197,41 @@ Programmation de la tache BackgroundTask principale:
 si écran touché en moins de 2s: reward + écran noir; sinon essai aborted
 Ca fonctionne bien sur ma machine.
 Next step: programmer les tâches en différentes phases! 
+
+25/02/22
+Programmation de la BackgroundTask défoinitive (...) OK
+Installée à Rousset sur Modules 1 et 3 - a l'air de bien fcontionner
+Mais problemes:
+- le dashboard à Rousset semble ne plus fonctionner, ni les tableaux de participoants;
+- je n'arrive plus aujourdhui à faire tourner les manips en local: OMM not connected (malgré connexion OK sur le OMMEntryPoint)...
+J'essaie d'updater le docker...
+Sinon bonne progression dans la programmation de la OMMTask1, en 2 phases finalement: 
+a voir le controle du niveau de difficulté en fponction de la performance
+
+30 mars 2022 - retour à OMM ==================
+- update OMM client: erreur... => réinstallation Open Sesame version 3.3.11
+Successfully installed opensesame-extension-omm-0.6.0
+- updated OMM-BackgroundTask.
+Problème: avec cette nouvelle version je peux contrôler le nombre de tours du moteur, par contre c'est soit son soit moteur! 
+
+02/04/22
+- probleme! la Task1_1_testing marche comme je veux sur ma machine - mais pas sur Module 2 à Rousset!!
+erreus de type 'finished' au lieu de pending, et passage de niveau 4 à 2 sans explication...???
+J'essaie de remettre la version précédente de OMM CLient sur ma machine (voir si ca génere le même pb qu'à Rousset)
+(en même temps voir si ça règle le pb d'interaction son/récompense) - Je ne peux pas! retourner à la version précédfente!
+Donc stucj avec le probleme son/récompense.
+- updated OpenSesame on Module 2 et serveur; update OMM cleint to 0.6
+03/04/22
+Task 1_1-testing marche bien. Installée sur Module 2 -> check si récompense et sopn OK! 
+(sinon il va falloir repasser à OMM cleint 0.5)
+
+4/4/22 Upodate Modules 2 et 4 to OMM client 0.6
+Manip seems to run on Module 2!!
+
+7/4/22
+DU coup installation Opensesame 3.11 et OMMCLient 0.0.6 sur machqines 1 et 3 - mais là ca ne marche pas!!??
+meme probleme que sur ma machine
+==> j'essaie de revenir à OpenSesame 3.10 et OMMCLient 0.5.0 
+OpenSesame 3.3.10 : https://github.com/open-cogsci/OpenSesame/releases/tag/release%2F3.3.10 
+
+
