@@ -233,5 +233,19 @@ DU coup installation Opensesame 3.11 et OMMCLient 0.0.6 sur machqines 1 et 3 - m
 meme probleme que sur ma machine
 ==> j'essaie de revenir à OpenSesame 3.10 et OMMCLient 0.5.0 
 OpenSesame 3.3.10 : https://github.com/open-cogsci/OpenSesame/releases/tag/release%2F3.3.10 
+OMM clinent 0.5.0: pip install opensesame-extension-omm==0.5.0 --force --user
+OK: réussi sur ma machine - et la Task1_1 marche!! 
+MAIS on ne peit plus controler le nombre de tours du moteur -> pas grave pôur l'instant
 
+==> j'essaie sur module 1 - ca marche, juste en updatant le client 
+(-pas besoin de revenir à OpenSesame 3.3.10)
+
+Tous les modules sont back to OMM Client 0.5.0 - ca fonctionne OK
+
+28/4/22 
+Nouvelle Task 1: plus de silence avant le coo - on introduit directement des durées croissantes de CooA avant le CooB
+2 phases:
+Task1_1: durée croissante d'un seul CooA de 50 - 500ms (10 niveaux avec incrément de 50ms de 50 à 500 ms).
+Task1_2: on introduit un nombre aléatoire de Coo A avant le CooB 
+- entre 1 et 2 pour niveau 1 --- jusqu'à entre 1 et 7 pour niveau 6
 
