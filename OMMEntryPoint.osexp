@@ -1,6 +1,6 @@
 ---
 API: 2.1
-OpenSesame: 3.3.9
+OpenSesame: 3.3.12
 Platform: nt
 ---
 set width 1024
@@ -14,8 +14,6 @@ set sound_freq 48000
 set sound_channels 2
 set sound_buf_size 1024
 set round_decimals 2
-set omm_rfid_port COM5
-set omm_condition_port COM6
 set height 768
 set fullscreen no
 set form_clicks no
@@ -25,7 +23,7 @@ set font_size 18
 set font_italic no
 set font_family mono
 set font_bold no
-set experiment_path "C:/AMUBOX/ERC2017/MACAQUE/OMM"
+set experiment_path "C:\\Users\\pbeli\\Documents\\GitHub\\OMM"
 set disable_garbage_collection yes
 set description "Entry point for connecting to an OMM server"
 set coordinates uniform
@@ -34,14 +32,12 @@ set canvas_backend legacy
 set background black
 
 define OMMAnnounce announce
-	__omm_yaml_data__
-	omm_condition_port: COM6
-	omm_rfid_port: COM5
-	__end__
-	set omm_server "omm.cogsci.nl"
-	set omm_port 4000
+	set omm_yaml_data "Module: Module 0"
+	set omm_server localhost
+	set omm_port 3000
 	set omm_participant "[participant]"
 	set omm_local_logfile "omm.log"
+	set omm_fallback_experiment "C:/Users/pbeli/Documents/GitHub/OMM/OMM-BackgroundTask.osexp"
 	set omm_api 1
 	set description "Announce-participant plugin for Open Monkey Mind"
 
@@ -56,26 +52,8 @@ define sketchpad blank
 define OMMDetectParticipant detect
 	set serial_port "[=var.get('omm_rfid_port', 'COM5')]"
 	set participant_variable participant
+	set min_rep 1
 	set detector rfid
-
-define OMMConditioner new_OMMConditioner
-	set sound both
-	set serial_port COM6
-	set reward yes
-	set description "Conditioner plugin for Open Monkey Mind"
-	set conditioner SeedDispenser
-
-define touch_response new_touch_response
-	set timeout 3
-	set show_cursor yes
-	set linked_sketchpad ""
-	set flush yes
-	set event_type mouseclick
-	set duration mouseclick
-	set description "A grid-based response item, convenient for touch screens"
-	set correct_response "18;19;26;27"
-	set _nrow 6
-	set _ncol 8
 
 define loop omm_loop
 	set source_file ""
@@ -95,18 +73,9 @@ define sequence omm_sequence
 	set description "Runs a number of items in sequence"
 	run wait always
 	run detect always
-	run reponsebuttons always
-	run new_touch_response always
-	run new_OMMConditioner always
 	run blank always
 	run announce always
 	run be_infinite always
-
-define sketchpad reponsebuttons
-	set duration 0
-	set description "Displays stimuli"
-	draw rect color=white fill=1 h=256 penwidth=1 show_if=always w=256 x=-384 y=-128 z_index=0
-	draw rect color=white fill=1 h=256 penwidth=1 show_if=always w=256 x=128 y=-128 z_index=0
 
 define sketchpad wait
 	set duration 0

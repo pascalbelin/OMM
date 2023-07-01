@@ -249,3 +249,53 @@ Task1_1: durée croissante d'un seul CooA de 50 - 500ms (10 niveaux avec incrém
 Task1_2: on introduit un nombre aléatoire de Coo A avant le CooB 
 - entre 1 et 2 pour niveau 1 --- jusqu'à entre 1 et 7 pour niveau 6
 
+
+11/07/22
+Installation OpenSesame 3.12 
+	https://osdoc.cogsci.nl/3.3/download/#windows   OK
+Mise à jour OMM-client 0.6.0
+	!pip install opensesame-extension-omm --user	OK
+Mise à jour OMM-server
+	cp .env.docker .env
+	docker-compose up -d	OK (marche la 2e fois)
+	
+12/07/22
+=> toujours le pb de récompense... marche le 1er coup puis plus jamais.
+je reviens à OMM Client v5 - ca marche (meme avec trop de tours de moetur!! ?) maintenant 5 tours de moteur (2 pulses demandées) avec OpenSesame12
+
+13/07/22 
+Installation OMM client 0.6.3 après clean install Open Sesame 3.3.12 - sur conseil de Sebastiaan
+Ca marche! Bon controle du nombre de tours et des pauses entre! On peut maintenant moduler la récompense!
+=> on propage aux machines
+
+
+==============================
+3/08/22
+Racaille persévère et fait des 1000's d'essais à la Tâche1_2, mais a vraiment du mal.
+Quand il y a 1 seul Coo1 la plupart du temps il presse pendant le Coo2 et a sa récompense - déjà pas mal conséidréant que la fenêtre de répons est de 500ms.
+Mais quand il y en a 2 Coo1 il appuie souvent sur le 2e Coo1... 
+Etape critique du passage de 'appuyer sur le 2e' à 'appuyer sur celui qui est différent'
+Pour lui faciliter la tâche: on va faire un nouvelle tâche 1_2 dans laquelle on passera à 100% de 2xCoo1 avant Coo2- donc motivant à appuyer sur le 3e - mais ensuite en introduisnat par appliers une proportion grandissante de 1x Coo1. 
+Du coup une fois qu'il a appris à attendre 2 Coo1 (level1) il doit apprendre à répondre plus vite dans certains cas (1 seulCOo1 - porportion grandissante avec le niveau)
+=> j'essaie de programmer ça.
+nb Coo1: 2-floor(rand+0.1*(level-1))   avec rand compris entre 0 et 1
+level 1: que des 2 ; level 6: moitié de 1 et de 2
+C'est programmé dans OMM-Task1_2_new. 
+La proportion de 2 coo1 diminue de 100% au niveau 1 à 50% ai niveau 6
+On essaie, et si ca marche on pâssera manuellement à 3 coo1.
+
+... ca ne marche pas - Racaille reste bloqué à 50% au niveau 5 après 5000 essais...
+
+==============================
+16/9/22 TACHE 2
+Un coo associé à un cercle bleu, un scream associé à un triangle jaune
+YT1-6.JPG: yellow triangle 0% - 100% Brightness en steps 20%
+
+
+========================
+11/10/22 TACHE v2
+On rajoute un décalage de 500ms entre disply et COO; 
+un level0 avec les stimuli par blocs de 20 identiques; 
+plus de contrebazlancement de la position
+et on prend 2 coos: COo_1 et Coo_3 de Coo_Morph
+Tous les singes mis sur la tâche level0 aujourd'hui
