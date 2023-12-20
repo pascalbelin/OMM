@@ -1,0 +1,141 @@
+---
+API: 2.1
+OpenSesame: 3.3.9
+Platform: nt
+---
+set width 1024
+set uniform_coordinates yes
+set title "OMM Entry Point"
+set subject_parity even
+set subject_nr 0
+set start omm_loop
+set sound_sample_size -16
+set sound_freq 48000
+set sound_channels 2
+set sound_buf_size 1024
+set round_decimals 2
+set height 768
+set fullscreen no
+set form_clicks no
+set foreground white
+set font_underline no
+set font_size 18
+set font_italic no
+set font_family mono
+set font_bold no
+set experiment_path "C:\\Users\\CCDP\\Desktop\\OMM"
+set disable_garbage_collection yes
+set description "Entry point for connecting to an OMM server"
+set coordinates uniform
+set compensation 0
+set canvas_backend legacy
+set box 27
+set background black
+
+define OMMAnnounce announce
+	__omm_yaml_data__
+	box: 21
+	__end__
+	set omm_server "192.168.201.51"
+	set omm_port 3000
+	set omm_participant "[participant]"
+	set omm_local_logfile "omm.log"
+	set omm_fallback_experiment "C:/Users/CCDP/Desktop/OMM/fallback.osexp"
+	set omm_api 1
+	set description "Announce-participant plugin for Open Monkey Mind"
+
+define repeat_cycle be_infinite
+	set description "Optionally repeat a cycle from a loop"
+	set condition always
+
+define inline_script check_participant
+	set description "Exécute du code Python"
+	___run__
+	VALID_PARTICIPANTS = [
+	'/099550000003505560/','/1/',
+	'/099550000003505539/','/2/',
+	'/099550000003505308/','/3/',
+	'testingchip4','/4/',
+	'/099550000000036104/','/099550000000026200/',
+	'/099550000000031765/','/099550000000021958/',
+	'/099550000000030360/','/099550000000025124/',
+	'/099550000000036577/','/099550000000020802/',
+	'/099550000000034762/','/099550000000023020/',
+	'/099550000003505396/','/099550000000024750/',
+	'/099550000003505839/','/099550000003293964/',
+	'/099550000004236705/','/099550000004018095/',
+	'/099550000000039512/','/099550000000027869/',
+	'/099550000000037525/','/099550000000038057/',
+	'/099550000000034621/','/099550000003294072/',
+	'/099550000003505435/','/099550000000039156/',
+	'/099550000003506296/','/099550000003294131/',
+	'/099550000003293984/','/099550000003294124/',
+	'/099550000003293973/','/099550000003293998/',
+	'/099550000003505914/','/099550000004018097/',
+	'/099550000003506260/','/099550000003293866/',
+	'/099550000003506016/','/099550000003505322/',
+	'/099550000004238478/','/099550000003505500/',
+	'/099550000004017751/','/099550000004238419/',
+	'/099550000004238456/','/099550000004017697/',
+	'/099550228500067424/','/099550000004017701/',
+	'/099550228500067241/','/099550000004238469/',
+	'/099550000004238489/','/099550000004236740/',
+	'/099550228500067420/','/099550000004238529/']
+	var.valid_participant=0
+	print(var.participant)
+	if var.participant in VALID_PARTICIPANTS: 
+	    var.valid_participant=1
+	print(var.valid_participant)
+	__end__
+	set _prepare "var.participant = 'none'"
+
+define OMMDetectParticipant detect
+	set serial_port "[=var.get('omm_rfid_port', 'COM5')]"
+	set participant_variable participant
+	set min_rep 2
+	set detector rfid
+
+define sketchpad grey
+	set duration 0
+	set description "Displays stimuli"
+	set background gray
+
+define loop omm_loop
+	set source_file ""
+	set source table
+	set repeat 1
+	set order random
+	set description "Repeatedly runs another item"
+	set cycles 1
+	set continuous no
+	set break_if_on_first yes
+	set break_if never
+	setcycle 0 empty_column ""
+	run omm_sequence
+
+define sequence omm_sequence
+	set flush_keyboard yes
+	set description "Runs a number of items in sequence"
+	run wait always
+	run detect always
+	run check_participant always
+	run save_participant always
+	run grey always
+	run announce "[valid_participant]=1"
+	run be_infinite always
+
+define inline_script save_participant
+	set description "Exécute du code Python"
+	___run__
+	file_object = open(r"C:\Users\CCDP\Desktop\OMM\rfid_file.txt", 'a')
+	file_object.write(var.participant)
+	file_object.write('\n')
+	file_object.close()
+	__end__
+	set _prepare ""
+
+define sketchpad wait
+	set duration 0
+	set description "Displays stimuli"
+	set background gray
+
